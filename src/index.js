@@ -1,17 +1,24 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function App() {
+
+  let [weatherData, setWeatherData] = useState(null);
+
+  useEffect(() => {
+    fetch("https://wttr.in/?lang=en&format=j1")
+    .then(response => response.json())
+    .then(data => setWeatherData(data))
+  },[]);
+
+  return (
+    <div className='screen'>
+      In {weatherData && (weatherData.nearest_area[0].country[0].value)} the current temperature is {weatherData && (weatherData.current_condition[0].temp_C)}°C
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);

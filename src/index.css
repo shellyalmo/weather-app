@@ -1,13 +1,10 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.screen {
+  height: 400px;
+  width: 300px;
+  background: #e2e3e2;
+  border-radius: 10px;
+  background-image: url('https://img.freepik.com/premium-vector/natural-background-with-clouds-sun-blue-sky-realistic-cloud-blue-backdrop-vector-illustration_515038-928.jpg?w=460');
+
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+
