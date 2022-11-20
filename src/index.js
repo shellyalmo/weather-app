@@ -30,16 +30,18 @@ function App() {
         <p>Loading ...</p>
       ) : (
         <div className="screen">
+          <div className="location-box">
+            {weatherData && weatherData.nearest_area[0].country[0].value}
+          </div>
           <div className="date-box">
             {hasError && <p>Something went wrong.</p>}
             Forecast time:{" "}
             {weatherData && weatherData.current_condition[0].localObsDateTime}
           </div>
-          <div>
-            In {weatherData && weatherData.nearest_area[0].country[0].value} the
-            current temperature is{" "}
-            {weatherData && weatherData.current_condition[0].temp_C}°C Weather
-            is:{" "}
+          <div className="temperature-box">
+            {weatherData && weatherData.current_condition[0].temp_C}°C
+          </div>
+          <div className="weather-desc">
             {weatherData &&
               weatherData.current_condition[0].weatherDesc[0].value}
           </div>
