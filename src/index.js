@@ -7,6 +7,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
+
   useEffect(() => {
     setIsLoading(true);
     setHasError(false);
@@ -29,7 +30,7 @@ function App() {
       {isLoading ? (
         <p>Loading ...</p>
       ) : (
-        <div className="screen">
+        <div className={(weatherData.current_condition[0].weatherDesc[0].value.match(/Sunny/i))?('screen sunny'):((weatherData.current_condition[0].weatherDesc[0].value.match(/Rain/i)) ? ('screen rainy') : ('screen'))}>
           <div className="location-box">
             {weatherData && weatherData.nearest_area[0].country[0].value}
           </div>

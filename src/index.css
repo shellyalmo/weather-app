@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: #e2e3e2;
+  background: #6ac4f4;
   border-radius: 10px;
   min-height: 100vh;
   padding: 25px;
@@ -11,8 +11,15 @@
       to bottom,
       rgba(0, 0, 0, 0.2),
       rgba(0, 0, 0, 0.75)
-    ),
-    url(https://img.freepik.com/premium-vector/natural-background-with-clouds-sun-blue-sky-realistic-cloud-blue-backdrop-vector-illustration_515038-928.jpg?w=460);
+    );
+}
+
+.screen.sunny {
+  background-image: url('./assets/sunny.jpeg');
+}
+
+.screen.rainy {
+  background-image: url('./assets/rainy.jpeg');
 }
 
 .date-box {
