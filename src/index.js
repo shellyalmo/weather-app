@@ -25,12 +25,33 @@ function App() {
       });
   }, [url]); 
 
+  // function handleLocationSearch (e) {
+  //   setLocationSearch(e.target.value);
+  // }
+
   return (
     <div>
       {hasError && <p>Something went wrong.</p>}
       {isLoading ? (
         <p>Loading ...</p>
       ) : (
+        <div
+          className={
+            weatherData.current_condition[0].weatherDesc[0].value.match(
+              /Sunny|clear/i
+            )
+              ? "screen sunny"
+              : weatherData.current_condition[0].weatherDesc[0].value.match(
+                  /drizzle|mist|Rain/i
+                )
+              ? "screen rainy"
+              : weatherData.current_condition[0].weatherDesc[0].value.match(
+                  /cloud/i
+                )
+              ? "screen cloudy"
+              : "screen"
+          }
+        >
           <form onSubmit={(e) => {
             e.preventDefault();
             setUrl(`https://wttr.in/${locationSearch}?lang=en&format=j1`)}}> 
@@ -60,11 +81,6 @@ function App() {
             {weatherData &&
               weatherData.current_condition[0].weatherDesc[0].value}
           </div>
-          {/* <div className="search-bar">
-            <input type="search" placeholder="city name..." />
-            <button>Show weather</button>
-          </div> */}
-          {/* <div className="weather-by-city-box">city weather</div> */}
         </div>
       )}
     </div>
