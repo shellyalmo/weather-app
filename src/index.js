@@ -3,16 +3,17 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 function App() {
-  let [weatherData, setWeatherData] = useState(null);
+  const [url,setUrl] = useState("https://wttr.in/israel?lang=en&format=j1")
+  const [weatherData, setWeatherData] = useState(null);
+  const [locationSearch, setLocationSearch] = useState(""); 
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-
 
   useEffect(() => {
     setIsLoading(true);
     setHasError(false);
 
-    fetch("https://wttr.in/?lang=en&format=j1")
+    fetch(url)
       .then((response) => response.json())
       .then((data) => {
         setWeatherData(data);
@@ -22,7 +23,7 @@ function App() {
         setHasError(true);
         setIsLoading(false);
       });
-  }, []);
+  }, [url]); 
 
   return (
     <div>
@@ -30,7 +31,20 @@ function App() {
       {isLoading ? (
         <p>Loading ...</p>
       ) : (
-        <div className={(weatherData.current_condition[0].weatherDesc[0].value.match(/Sunny/i))?('screen sunny'):((weatherData.current_condition[0].weatherDesc[0].value.match(/Rain/i)) ? ('screen rainy') : ('screen'))}>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            setUrl(`https://wttr.in/${locationSearch}?lang=en&format=j1`)}}> 
+              <input
+              // onsubmit does post and reload by default
+              // add label and name
+                type="text"
+                className="search-box"
+                placeholder="Search..."
+                value={locationSearch}
+                onChange={(e) => setLocationSearch(e.target.value)}
+                // onInput={handleLocationSearch}
+              />
+          </form>
           <div className="location-box">
             {weatherData && weatherData.nearest_area[0].country[0].value}
           </div>
