@@ -41,6 +41,7 @@
   border-radius: 5px;
   height: 20px;
   width: 90%;
+  text-transform: capitalize;
 }
 
 .date-box {
@@ -72,6 +73,7 @@
   padding-top: 150px;
   text-shadow: 3px 3px rgb(50 50 70 / 50%);
   color: white;
+  text-transform: capitalize;
 }
 
 .weather-desc {

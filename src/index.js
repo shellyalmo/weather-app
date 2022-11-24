@@ -3,9 +3,10 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 function App() {
-  const [url,setUrl] = useState("https://wttr.in/israel?lang=en&format=j1")
+  const [url, setUrl] = useState("https://wttr.in/israel?lang=en&format=j1");
   const [weatherData, setWeatherData] = useState(null);
-  const [locationSearch, setLocationSearch] = useState(""); 
+  const [locationSearch, setLocationSearch] = useState("");
+  const [cityName, setCityName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
@@ -23,11 +24,7 @@ function App() {
         setHasError(true);
         setIsLoading(false);
       });
-  }, [url]); 
-
-  // function handleLocationSearch (e) {
-  //   setLocationSearch(e.target.value);
-  // }
+  }, [url]);
 
   return (
     <div>
@@ -46,31 +43,36 @@ function App() {
                 )
               ? "screen rainy"
               : weatherData.current_condition[0].weatherDesc[0].value.match(
-                  /cloud/i
+                  /cloud|overcast/i
                 )
               ? "screen cloudy"
               : weatherData.current_condition[0].weatherDesc[0].value.match(
-                /snow|ice/i
-              )
+                  /snow|ice/i
+                )
               ? "screen snowy"
               : "screen"
           }
         >
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            setUrl(`https://wttr.in/${locationSearch}?lang=en&format=j1`)}}> 
-              <input
-              // onsubmit does post and reload by default
-              // add label and name
-                type="text"
-                className="search-box"
-                placeholder="Search city or country name..."
-                value={locationSearch}
-                onChange={(e) => setLocationSearch(e.target.value)}
-                // onInput={handleLocationSearch}
-              />
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setUrl(`https://wttr.in/${locationSearch}?lang=en&format=j1`);
+              setCityName(
+                locationSearch /*.charAt(0).toUpperCase() + locationSearch.slice(1)*/
+              );
+            }}
+          >
+            <input
+              type="text"
+              className="search-box"
+              placeholder="Search city or country name..."
+              value={locationSearch}
+              onChange={(e) => setLocationSearch(e.target.value)}
+            />
           </form>
           <div className="location-box">
+            {cityName}{" "}
+            {weatherData && weatherData.nearest_area[0].region[0].value},{" "}
             {weatherData && weatherData.nearest_area[0].country[0].value}
           </div>
           <div className="date-box">
