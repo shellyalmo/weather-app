@@ -26,6 +26,7 @@ function App() {
       });
   }, [url]);
 
+
   return (
     <div>
       {hasError && <p>Something went wrong.</p>}
@@ -53,17 +54,20 @@ function App() {
               : "screen"
           }
         >
-          <form
+          <form autocomplete="off"
             onSubmit={(e) => {
               e.preventDefault();
               setUrl(`https://wttr.in/${locationSearch}?lang=en&format=j1`);
               setCityName(
-                locationSearch /*.charAt(0).toUpperCase() + locationSearch.slice(1)*/
+                locationSearch.toLowerCase()
               );
             }}
           >
             <input
-              type="text"
+              type="search"
+              required
+              pattern="[a-zA-Z]+"
+              name="location"
               className="search-box"
               placeholder="Search city or country name..."
               value={locationSearch}
@@ -71,7 +75,7 @@ function App() {
             />
           </form>
           <div className="location-box">
-            {cityName}{" "}
+            {cityName && cityName+", "}
             {weatherData && weatherData.nearest_area[0].region[0].value},{" "}
             {weatherData && weatherData.nearest_area[0].country[0].value}
           </div>
