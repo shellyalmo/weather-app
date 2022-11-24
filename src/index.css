@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background: #6ac4f4;
   border-radius: 10px;
   min-height: 100vh;
   padding: 25px;
@@ -12,6 +11,7 @@
     rgba(0, 0, 0, 0.2),
     rgba(0, 0, 0, 0.75)
   );
+  background-size: cover;
 }
 
 .screen.sunny {
@@ -24,6 +24,10 @@
 
 .screen.cloudy {
   background-image: url("./assets/cloudy.jpeg");
+}
+
+.screen.snowy {
+  background-image: url("./assets/snowy.jpeg");
 }
 
 .search-box {

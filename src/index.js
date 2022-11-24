@@ -49,6 +49,10 @@ function App() {
                   /cloud/i
                 )
               ? "screen cloudy"
+              : weatherData.current_condition[0].weatherDesc[0].value.match(
+                /snow|ice/i
+              )
+              ? "screen snowy"
               : "screen"
           }
         >
