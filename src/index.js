@@ -60,7 +60,7 @@ function App() {
               // add label and name
                 type="text"
                 className="search-box"
-                placeholder="Search..."
+                placeholder="Search city or country name..."
                 value={locationSearch}
                 onChange={(e) => setLocationSearch(e.target.value)}
                 // onInput={handleLocationSearch}
