@@ -66,13 +66,14 @@ function App() {
             <input
               type="search"
               required
-              pattern="[a-zA-Z]+"
+              pattern="[a-z A-Z]+"
               name="location"
               className="search-box"
-              placeholder="Search city or country name..."
+              placeholder="Search city name..."
               value={locationSearch}
               onChange={(e) => setLocationSearch(e.target.value)}
             />
+            <input type="submit" value="Search"/>
           </form>
           <div className="location-box">
             {cityName && cityName+", "}
