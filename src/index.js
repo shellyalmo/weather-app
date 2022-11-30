@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import Lottie from "react-lottie";
 import * as sunnyWeatherAnimation from "./assets/sunnyWeather.json";
+import * as cloudyWeatherAnimation from "./assets/cloudyWeather.json";
 
 function App() {
   const [url, setUrl] = useState("https://wttr.in/israel?lang=en&format=j1");
@@ -12,10 +13,16 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  const defaultOption = {
+  const sunnyAnimation = {
     loop: true,
     autoplay: true,
     animationData: sunnyWeatherAnimation.default,
+  };
+
+  const cloudyAnimation = {
+    loop: true,
+    autoplay: true,
+    animationData: cloudyWeatherAnimation.default,
   };
 
   useEffect(() => {
@@ -101,7 +108,10 @@ function App() {
           <div>
           {weatherData.current_condition[0].weatherDesc[0].value.match(
               /Sunny|clear/i
-            ) ? <Lottie options={defaultOption} height={200} width={200} />:null}
+            ) ? <Lottie options={sunnyAnimation} height={200} width={200} />:weatherData.current_condition[0].weatherDesc[0].value.match(
+              /cloud|overcast/i
+            )
+          ? <Lottie options={cloudyAnimation} height={200} width={200} />:null}
           </div>
         </div>
       )}
