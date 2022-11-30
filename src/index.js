@@ -4,6 +4,7 @@ import "./index.css";
 import Lottie from "react-lottie";
 import * as sunnyWeatherAnimation from "./assets/sunnyWeather.json";
 import * as cloudyWeatherAnimation from "./assets/cloudyWeather.json";
+import * as rainyWeatherAnimation from "./assets/rainyWeather.json";
 
 function App() {
   const [url, setUrl] = useState("https://wttr.in/israel?lang=en&format=j1");
@@ -23,6 +24,12 @@ function App() {
     loop: true,
     autoplay: true,
     animationData: cloudyWeatherAnimation.default,
+  };
+
+  const rainyAnimation = {
+    loop: true,
+    autoplay: true,
+    animationData: rainyWeatherAnimation.default,
   };
 
   useEffect(() => {
@@ -106,12 +113,18 @@ function App() {
               weatherData.current_condition[0].weatherDesc[0].value}
           </div>
           <div>
-          {weatherData.current_condition[0].weatherDesc[0].value.match(
+            {weatherData.current_condition[0].weatherDesc[0].value.match(
               /Sunny|clear/i
-            ) ? <Lottie options={sunnyAnimation} height={200} width={200} />:weatherData.current_condition[0].weatherDesc[0].value.match(
-              /cloud|overcast/i
+            ) ? (
+              <Lottie options={sunnyAnimation} height={200} width={200} />
+            ) : weatherData.current_condition[0].weatherDesc[0].value.match(
+                /cloud|overcast/i
+              ) ? (
+              <Lottie options={cloudyAnimation} height={200} width={200} />
+            ) : weatherData.current_condition[0].weatherDesc[0].value.match(
+              /drizzle|mist|Rain/i
             )
-          ? <Lottie options={cloudyAnimation} height={200} width={200} />:null}
+          ? <Lottie options={rainyAnimation} height={200} width={200} />:null}
           </div>
         </div>
       )}
