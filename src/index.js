@@ -101,7 +101,7 @@ function App() {
           <div>
           {weatherData.current_condition[0].weatherDesc[0].value.match(
               /Sunny|clear/i
-            ) ? <Lottie options={defaultOption} height={400} width={500} />:null}
+            ) ? <Lottie options={defaultOption} height={200} width={200} />:null}
           </div>
         </div>
       )}
