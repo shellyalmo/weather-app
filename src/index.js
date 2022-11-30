@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import Lottie from "react-lottie";
+import * as sunnyWeatherAnimation from "./assets/sunnyWeather.json";
+import * as cloudyWeatherAnimation from "./assets/cloudyWeather.json";
+import * as rainyWeatherAnimation from "./assets/rainyWeather.json";
+import * as snowyWeatherAnimation from "./assets/snowyWeather.json";
 
 function App() {
   const [url, setUrl] = useState("https://wttr.in/israel?lang=en&format=j1");
@@ -9,6 +14,30 @@ function App() {
   const [cityName, setCityName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+
+  const sunnyAnimation = {
+    loop: true,
+    autoplay: true,
+    animationData: sunnyWeatherAnimation.default,
+  };
+
+  const cloudyAnimation = {
+    loop: true,
+    autoplay: true,
+    animationData: cloudyWeatherAnimation.default,
+  };
+
+  const rainyAnimation = {
+    loop: true,
+    autoplay: true,
+    animationData: rainyWeatherAnimation.default,
+  };
+
+  const snowyAnimation = {
+    loop: true,
+    autoplay: true,
+    animationData: snowyWeatherAnimation.default,
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -25,7 +54,6 @@ function App() {
         setIsLoading(false);
       });
   }, [url]);
-
 
   return (
     <div>
@@ -54,13 +82,12 @@ function App() {
               : "screen"
           }
         >
-          <form autocomplete="off"
+          <form
+            autoComplete="off"
             onSubmit={(e) => {
               e.preventDefault();
               setUrl(`https://wttr.in/${locationSearch}?lang=en&format=j1`);
-              setCityName(
-                locationSearch.toLowerCase()
-              );
+              setCityName(locationSearch.toLowerCase());
             }}
           >
             <input
@@ -73,10 +100,10 @@ function App() {
               value={locationSearch}
               onChange={(e) => setLocationSearch(e.target.value)}
             />
-            <input type="submit" value="Search"/>
+            <input type="submit" value="Search" />
           </form>
           <div className="location-box">
-            {cityName && cityName+", "}
+            {cityName && cityName + ", "}
             {weatherData && weatherData.nearest_area[0].region[0].value},{" "}
             {weatherData && weatherData.nearest_area[0].country[0].value}
           </div>
@@ -91,6 +118,23 @@ function App() {
           <div className="weather-desc">
             {weatherData &&
               weatherData.current_condition[0].weatherDesc[0].value}
+          </div>
+          <div>
+            {weatherData.current_condition[0].weatherDesc[0].value.match(
+              /Sunny|clear/i
+            ) ? (
+              <Lottie options={sunnyAnimation} height={200} width={200} />
+            ) : weatherData.current_condition[0].weatherDesc[0].value.match(
+                /cloud|overcast/i
+              ) ? (
+              <Lottie options={cloudyAnimation} height={200} width={200} />
+            ) : weatherData.current_condition[0].weatherDesc[0].value.match(
+              /drizzle|mist|Rain/i
+            )
+          ? <Lottie options={rainyAnimation} height={200} width={200} />:weatherData.current_condition[0].weatherDesc[0].value.match(
+            /snow|ice/i
+          )
+        ? <Lottie options={snowyAnimation} height={200} width={200} />:null}
           </div>
         </div>
       )}
