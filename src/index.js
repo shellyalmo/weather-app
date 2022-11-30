@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import Lottie from "react-lottie";
+import * as sunnyWeatherAnimation from "./assets/sunnyWeather.json";
 
 function App() {
   const [url, setUrl] = useState("https://wttr.in/israel?lang=en&format=j1");
@@ -9,6 +11,12 @@ function App() {
   const [cityName, setCityName] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+
+  const defaultOption = {
+    loop: true,
+    autoplay: true,
+    animationData: sunnyWeatherAnimation.default,
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -25,7 +33,6 @@ function App() {
         setIsLoading(false);
       });
   }, [url]);
-
 
   return (
     <div>
@@ -54,13 +61,12 @@ function App() {
               : "screen"
           }
         >
-          <form autocomplete="off"
+          <form
+            autoComplete="off"
             onSubmit={(e) => {
               e.preventDefault();
               setUrl(`https://wttr.in/${locationSearch}?lang=en&format=j1`);
-              setCityName(
-                locationSearch.toLowerCase()
-              );
+              setCityName(locationSearch.toLowerCase());
             }}
           >
             <input
@@ -73,10 +79,10 @@ function App() {
               value={locationSearch}
               onChange={(e) => setLocationSearch(e.target.value)}
             />
-            <input type="submit" value="Search"/>
+            <input type="submit" value="Search" />
           </form>
           <div className="location-box">
-            {cityName && cityName+", "}
+            {cityName && cityName + ", "}
             {weatherData && weatherData.nearest_area[0].region[0].value},{" "}
             {weatherData && weatherData.nearest_area[0].country[0].value}
           </div>
@@ -91,6 +97,11 @@ function App() {
           <div className="weather-desc">
             {weatherData &&
               weatherData.current_condition[0].weatherDesc[0].value}
+          </div>
+          <div>
+          {weatherData.current_condition[0].weatherDesc[0].value.match(
+              /Sunny|clear/i
+            ) ? <Lottie options={defaultOption} height={400} width={500} />:null}
           </div>
         </div>
       )}
